@@ -19,49 +19,49 @@ def getFromAPI(query):
 
 
 def getUnassignedCases():
-    # Get the ammount of Unassigned cases
+    # Get the amount of Unassigned cases
     query = 'assigned:NONE%20group:Learndot%20status:new,open,pending'
     UnassignedCases = getFromAPI(query)
     return UnassignedCases
 
 
 def getWatingOnCustomerCases():
-    # Get the ammout of Waiting on Customer cases
+    # Get the amout of Waiting on Customer cases
     query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Waiting%20on%20Customer%22'
     WatingOnCustomer = getFromAPI(query)
     return WatingOnCustomer
 
 
 def getAssignedToDevCases():
-    # Get the ammout of Assigned To Dev cases
+    # Get the amout of Assigned To Dev cases
     query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Assigned%20to%20DEV%22'
     AssignedToDev = getFromAPI(query)
     return AssignedToDev
 
 
 def getAssginedToCSMCases():
-    # Get the ammout of Assigned To CSM
+    # Get the amout of Assigned To CSM
     query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Assigned%20to%20CSM%22'
     AssignedToCSM = getFromAPI(query)
     return AssignedToCSM
 
 
 def getAgginedToSupport():
-    # Get the ammout of Assigned To Support
+    # Get the amout of Assigned To Support
     query = 'group:Learndot%20status:open,new,pending%20custom_status:%22Assigned%20to%20Support%22'
     AssignedToSupport = getFromAPI(query)
     return AssignedToSupport
 
 
 def getOpenCases():
-    # Get the ammout of Open
+    # Get the amout of Open
     query = 'group:Learndot%20status:new,open,pending%20custom_status:Open'
     Open = getFromAPI(query)
     return Open
 
 
 def getCloseCases():
-    # Get the ammout of Open
+    # Get the amout of Close
     query = 'group:Learndot%20status:new,open,pending%20custom_status:Close'
     Open = getFromAPI(query)
     return Open
