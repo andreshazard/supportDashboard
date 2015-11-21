@@ -1,0 +1,33 @@
+body, #dashboard-wrapper {
+    background-color: #202020;
+    background-image: url(https://daks2k3a4ib2z.cloudfront.net/54c82c87a97006f114a9020d/54c82e09c794d6f3145b37e5_learndot-white.png);
+    background-repeat: no-repeat;
+    background-position: 10% 5%
+}
+.widget .widget-inner > header {
+        background-color: #E45E39;
+}
+.widget.selected .widget-inner > header {
+    background-color: #E45E39;
+}
+.widget .widget-inner > header h1 {
+    color: #2A2F32;
+    font-size: 19px;
+    font-weight: 900;
+    margin-bottom: 0;
+    line-height: 17px;
+}
+.clock-widget .time {
+    padding: 20px 12px;
+    background-color: #2A2A2A;
+}
+.number-widget.v2 .single-number {
+    font-size: 150%;
+}
+.text-widget .widget-canvas .slide {
+    font-size: 40px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
