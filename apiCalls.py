@@ -1,21 +1,24 @@
 import base64
 import json
 import urllib2
-from testingMonthDates import *
+import sys
 
 
 def getFromAPI(query):
-    # Generate call from API
-    baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
-    APIcall = baseURL + query
-    request = urllib2.Request(APIcall)
-    username = ''
-    password = ''
-    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
-    request.add_header("Authorization", "Basic %s" % base64string)
-    json_obj = urllib2.urlopen(request)
-    data = json.load(json_obj)
-    return data['total_entries']
+    try:
+        # Generate call from API
+        baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
+        APIcall = baseURL + query
+        request = urllib2.Request(APIcall)
+        username = ''
+        password = ''
+        base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+        request.add_header("Authorization", "Basic %s" % base64string)
+        json_obj = urllib2.urlopen(request)
+        data = json.load(json_obj)
+        return data['total_entries']
+    except:
+        sys.exit('Error getting data from Desk. Check is username and password are correct')
 
 
 def getUnassignedCases():
@@ -81,6 +84,20 @@ def getCreatedCasesOfMonth():
     return CreatedCases
 
 
+def getCreatedCasesOfToday():
+    # Get created cases of today
+    query = 'group:Learndot%20created:today%20label:%22%21Spam%22'
+    CreatedCases = getFromAPI(query)
+    return CreatedCases
+
+
+def getResolvedCasesOfToday():
+    # Get resolved cases of today
+    query = 'group:Learndot%20updated:today%20status:resolved%20label:%22%21Spam%22'
+    ResolvedCases = getFromAPI(query)
+    return ResolvedCases
+
+
 def getCreatedCasesOfLastThreeMonth():
     # Get crested cases of the last three months
     dateRanges = getRangeOfLastThreeMonth()
@@ -105,3 +122,73 @@ def getResolvedCasesOfLastThreeMonth():
         resolvedCasesinRange = getFromAPI(query)
         results.append(resolvedCasesinRange)
     return results
+
+
+def getAndresQueue():
+    # Get queue of Andres
+    query = 'assigned:%22Andres%20Hazard%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    andresQueue = getFromAPI(query)
+    return andresQueue
+
+
+def getAndresResolved():
+    # Get the resolved cases of the month by Andres
+    query = 'assigned:%22Andres%20Hazard%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    andresResolved = getFromAPI(query)
+    return andresResolved
+
+
+def getOscarQueue():
+    # Get queue of Oscar
+    query = 'assigned:%22Oscar%20Rivas%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    oscarQueue = getFromAPI(query)
+    return oscarQueue
+
+
+def getOscarResolved():
+    # Get the resolved cases of the month by Oscar
+    query = 'assigned:%22Oscar%20Rivas%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    oscarResolved = getFromAPI(query)
+    return oscarResolved
+
+
+def getJaimeQueue():
+    # Get queue of Jaime
+    query = 'assigned:%22Jaime%20Cornejo%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    jaimeQueue = getFromAPI(query)
+    return jaimeQueue
+
+
+def getJaimeResolved():
+    # Get the resolved cases of the month by Jaime
+    query = 'assigned:%22Jaime%20Cornejo%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    jaimeResolved = getFromAPI(query)
+    return jaimeResolved
+
+
+def getBoonQueue():
+    # Get queue of Boon
+    query = 'assigned:%22Yik%20Boon%20Tan%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    boonQueue = getFromAPI(query)
+    return boonQueue
+
+
+def getBoonResolved():
+    # Get the resolved cases of the month by Boon
+    query = 'assigned:%22Yik%20Boon%20Tan%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    boonResolved = getFromAPI(query)
+    return boonResolved
+
+
+def getCGQueue():
+    # Get queue of CG
+    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    cgQueue = getFromAPI(query)
+    return cgQueue
+
+
+def getCGResolved():
+    # Get the resolved cases of the month by CG
+    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    cgResolved = getFromAPI(query)
+    return cgResolved
