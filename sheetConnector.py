@@ -2,14 +2,15 @@ import gspread
 import json
 from oauth2client.client import SignedJwtAssertionCredentials
 import sys
+import os
 
 try:
-    json_key = json.load(open('Dashboard-c5a20a37defa.json'))  # File with credentials
+    json_key = json.load(open(os.path.join(os.path.dirname(__file__), 'Dashboard-c5a20a37defa.json')))  # File with credentials located on same directory as main.py
     scope = ['https://spreadsheets.google.com/feeds']
     credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
     gc = gspread.authorize(credentials)
 except:
-    sys.exit('Error connecting to Google Sheet, check is json file is present and active on Google')
+    sys.exit('Error connecting to Google Sheet, check if json file is present and active on Google')
 
 
 def sendToSheet(cell, number):
