@@ -18,7 +18,7 @@ def getFromAPI(query):
         data = json.load(json_obj)
         return data['total_entries']
     except:
-        sys.exit('Error getting data from Desk. Check is username and password are correct')
+        sys.exit('Error getting data from Desk. Check if username and password are correct')
 
 
 def getUnassignedCases():
