@@ -9,7 +9,7 @@ try:
     credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
     gc = gspread.authorize(credentials)
 except:
-    sys.exit('Error connecting to Google Sheet, check is json file is present and active on Google')
+    sys.exit('Error connecting to Google Sheet, check if json file is present and active on Google')
 
 
 def sendToSheet(cell, number):
