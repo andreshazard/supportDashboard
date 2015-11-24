@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import time
 from apiCalls import *
 from sheetConnector import *
 
@@ -76,6 +77,14 @@ class Desk:
         cgResolved = getCGResolved()
         return cgResolved
 
+    def deskMikeQueue(self):
+        mikeQueue = getMikeQueue()
+        return mikeQueue
+
+    def deskMikeResolved(self):
+        mikeResolved = getMikeResolved()
+        return mikeResolved
+
 
 class Sheet:
     def __init__(self):
@@ -84,7 +93,7 @@ class Sheet:
         self.cellForOpenThisMonth = 'Q2'
         self.cellForCloseThisMonth = 'R2'
         self.cellForAssignedToDev = 'N2'
-        self.cellForWatingOnCustomer = 'N3'
+        self.cellForWaitingOnCustomer = 'N3'
         self.cellForAssignedToSupport = 'N4'
         self.cellForAssignedToCSM = 'N5'
         self.cellForOpenToday = 'O2'
@@ -99,6 +108,8 @@ class Sheet:
         self.cellForBoonResolved = 'G24'
         self.cellForCGQueue = 'G28'
         self.cellForCGResolved = 'G29'
+        self.cellForMikeQueue = 'G33'
+        self.cellForMikeResolved = 'G34'
 
     def setBacklog(self, Desk):
         """Update backlog on sheet"""
@@ -109,7 +120,7 @@ class Sheet:
     def setUnassignedCases(self, Desk):
         """Update unassign cases on sheet"""
         unassigned = Desk.deskUnassignedCases()
-        sendToSheet(self.cellForUnassigned, unassigned)
+        sendToSheet(self.cellForUnassigned, unassigned - 1)
         print 'Updated unassign cases on sheet with ' + str(unassigned)
 
     def setOpenThisMonth(self, Desk):
@@ -127,7 +138,7 @@ class Sheet:
     def setWatingOnCustomer(self, Desk):
         """Update waiting on customer cases on sheet"""
         waitingOnCustomer = Desk.WaCu
-        sendToSheet(self.cellForWatingOnCustomer, waitingOnCustomer)
+        sendToSheet(self.cellForWaitingOnCustomer, waitingOnCustomer)
         print 'Updated waiting on customer cases on sheet with ' + str(waitingOnCustomer)
 
     def setAssignedToDev(self, Desk):
@@ -220,7 +231,21 @@ class Sheet:
         sendToSheet(self.cellForCGResolved, cgResolved)
         print 'Updated cg resolved cases of the month on sheet with ' + str(cgResolved)
 
+    def setMikeQueue(self, Desk):
+        """Update Mike queue on sheet"""
+        mikeQueue = Desk.deskMikeQueue()
+        sendToSheet(self.cellForMikeQueue, mikeQueue)
+        print 'Updated mike queue on sheet with ' + str(mikeQueue)
 
+    def setMikeResolved(self, Desk):
+        """Update mike resolved cases of the the month on sheet"""
+        mikeResolved = Desk.deskMikeResolved()
+        sendToSheet(self.cellForMikeResolved, mikeResolved)
+        print 'Updated mike resolved cases of the month on sheet with ' + str(mikeResolved)
+
+print
+print 'Starting update at ' + str(time.strftime("%Y-%m-%d %H:%M"))
+print
 desk = Desk()
 sheet = Sheet()
 sheet.setBacklog(desk)
@@ -232,6 +257,7 @@ sheet.setAssignedToDev(desk)
 sheet.setAssignedToSupport(desk)
 sheet.setAssignedToCSM(desk)
 sheet.setOpenToday(desk)
+sheet.setCloseToday(desk)
 sheet.setAndresQueue(desk)
 sheet.setAndresResolved(desk)
 sheet.setOscarQueue(desk)
@@ -240,5 +266,7 @@ sheet.setJaimeQueue(desk)
 sheet.setJaimeResolved(desk)
 sheet.setBoonQueue(desk)
 sheet.setBoonResolved(desk)
-sheet.setCGResolved(desk)
 sheet.setCGQueue(desk)
+sheet.setCGResolved(desk)
+sheet.setMikeQueue(desk)
+sheet.setMikeResolved(desk)
