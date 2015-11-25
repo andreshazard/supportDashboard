@@ -2,6 +2,17 @@ import base64
 import json
 import urllib2
 import sys
+import time
+import datetime
+from datetime import date
+
+
+def firstDayOfMonth(d):
+    return str(date(d.year, d.month, 1))
+
+
+def dateToTimestamp(d):
+    return int(time.mktime(datetime.datetime.strptime(d, "%Y-%m-%d").timetuple()))
 
 
 def getFromAPI(query):
@@ -10,8 +21,8 @@ def getFromAPI(query):
         baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
         APIcall = baseURL + query
         request = urllib2.Request(APIcall)
-        username = ''
-        password = ''
+        username = 'andres.hazard@servicerocket.com'
+        password = 'Desk123456'
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
         request.add_header("Authorization", "Basic %s" % base64string)
         json_obj = urllib2.urlopen(request)
@@ -37,7 +48,7 @@ def getWatingOnCustomerCases():
 
 def getAssignedToDevCases():
     # Get the amout of Assigned To Dev cases
-    query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Assigned%20to%20DEV%22'
+    query = 'group:Learndot%20status:pending%20custom_status:%22Assigned%20to%20DEV%22'
     AssignedToDev = getFromAPI(query)
     return AssignedToDev
 
@@ -72,28 +83,29 @@ def getCloseCases():
 
 def getResolvedCasesOfMonth():
     # Get resolved cases of current month
-    query = 'group:Learndot%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'group:Learndot%20%28ticket_customer.updated_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    print query
     ResolvedCases = getFromAPI(query)
     return ResolvedCases
 
 
 def getCreatedCasesOfMonth():
     # Get created cases of current month
-    query = 'group:Learndot%20created:month%20label:%22%21Spam%22'
+    query = 'group:Learndot%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29'
     CreatedCases = getFromAPI(query)
     return CreatedCases
 
 
 def getCreatedCasesOfToday():
     # Get created cases of today
-    query = 'group:Learndot%20created:today%20label:%22%21Spam%22'
+    query = 'group:Learndot%20created:today'
     CreatedCases = getFromAPI(query)
     return CreatedCases
 
 
 def getResolvedCasesOfToday():
     # Get resolved cases of today
-    query = 'group:Learndot%20updated:today%20status:resolved%20label:%22%21Spam%22'
+    query = 'group:Learndot%20updated:today%20status:resolved'
     ResolvedCases = getFromAPI(query)
     return ResolvedCases
 
@@ -133,7 +145,7 @@ def getAndresQueue():
 
 def getAndresResolved():
     # Get the resolved cases of the month by Andres
-    query = 'assigned:%22Andres%20Hazard%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     andresResolved = getFromAPI(query)
     return andresResolved
 
@@ -147,7 +159,7 @@ def getOscarQueue():
 
 def getOscarResolved():
     # Get the resolved cases of the month by Oscar
-    query = 'assigned:%22Oscar%20Rivas%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     oscarResolved = getFromAPI(query)
     return oscarResolved
 
@@ -161,7 +173,7 @@ def getJaimeQueue():
 
 def getJaimeResolved():
     # Get the resolved cases of the month by Jaime
-    query = 'assigned:%22Jaime%20Cornejo%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'assigned:%22Jaime%20Cornejo%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     jaimeResolved = getFromAPI(query)
     return jaimeResolved
 
@@ -175,7 +187,7 @@ def getBoonQueue():
 
 def getBoonResolved():
     # Get the resolved cases of the month by Boon
-    query = 'assigned:%22Yik%20Boon%20Tan%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     boonResolved = getFromAPI(query)
     return boonResolved
 
@@ -189,6 +201,24 @@ def getCGQueue():
 
 def getCGResolved():
     # Get the resolved cases of the month by CG
-    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20updated:month%20status:resolved%20label:%22%21Spam%22'
+    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     cgResolved = getFromAPI(query)
     return cgResolved
+
+
+def getMikeQueue():
+    # Get queue of Mike
+    query = 'assigned:%22Mike%20Dawson%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    mikeQueue = getFromAPI(query)
+    return mikeQueue
+
+
+def getMikeResolved():
+    # Get the resolved cases of the month by CG
+    query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    mikeResolved = getFromAPI(query)
+    return mikeResolved
+
+
+firstDay = dateToTimestamp(firstDayOfMonth(date.today()))
+today = dateToTimestamp(str(date.today()))
