@@ -21,8 +21,8 @@ def getFromAPI(query):
         baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
         APIcall = baseURL + query
         request = urllib2.Request(APIcall)
-        username = ''
-        password = ''
+        username = 'andres.hazard@servicerocket.com'
+        password = 'Desk123456'
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
         request.add_header("Authorization", "Basic %s" % base64string)
         json_obj = urllib2.urlopen(request)
