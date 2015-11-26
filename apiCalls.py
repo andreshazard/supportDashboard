@@ -144,8 +144,9 @@ def getAndresQueue():
 
 
 def getAndresResolved():
-    # Get the resolved cases of the month by Andres
-    query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by Andres
+    # query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Andres%20Hazard%22%20updated:today%20status:resolved'
     andresResolved = getFromAPI(query)
     return andresResolved
 
@@ -158,8 +159,9 @@ def getOscarQueue():
 
 
 def getOscarResolved():
-    # Get the resolved cases of the month by Oscar
-    query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by Oscar
+    # query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Oscar%20Rivas%22%20updated:today%20status:resolved'
     oscarResolved = getFromAPI(query)
     return oscarResolved
 
@@ -172,8 +174,9 @@ def getJaimeQueue():
 
 
 def getJaimeResolved():
-    # Get the resolved cases of the month by Jaime
-    query = 'assigned:%22Jaime%20Cornejo%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by Jaime
+    # query = 'assigned:%22Jaime%20Cornejo%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Jaime%20Cornejo%22%20updated:today%20status:resolved'
     jaimeResolved = getFromAPI(query)
     return jaimeResolved
 
@@ -186,8 +189,9 @@ def getBoonQueue():
 
 
 def getBoonResolved():
-    # Get the resolved cases of the month by Boon
-    query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by Boon
+    # query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Yik%20Boon%20Tan%22%20updated:today%20status:resolved'
     boonResolved = getFromAPI(query)
     return boonResolved
 
@@ -200,8 +204,9 @@ def getCGQueue():
 
 
 def getCGResolved():
-    # Get the resolved cases of the month by CG
-    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by CG
+    # query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20updated:today%20status:resolved'
     cgResolved = getFromAPI(query)
     return cgResolved
 
@@ -214,8 +219,9 @@ def getMikeQueue():
 
 
 def getMikeResolved():
-    # Get the resolved cases of the month by CG
-    query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # Get the resolved cases of the day by CG
+    # query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Mike%20Dawson%22%20updated:today%20status:resolved'
     mikeResolved = getFromAPI(query)
     return mikeResolved
 
