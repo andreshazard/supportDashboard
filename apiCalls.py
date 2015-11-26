@@ -84,7 +84,6 @@ def getCloseCases():
 def getResolvedCasesOfMonth():
     # Get resolved cases of current month
     query = 'group:Learndot%20%28ticket_customer.updated_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
-    print query
     ResolvedCases = getFromAPI(query)
     return ResolvedCases
 
