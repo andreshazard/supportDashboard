@@ -181,7 +181,7 @@ class Sheet:
         """Update andres resolved cases of the the month on sheet"""
         andresResolved = Desk.deskAndresResolved()
         sendToSheet(self.cellForAndresResolved, andresResolved)
-        print 'Updated andres resolved cases of the month on sheet with ' + str(andresResolved)
+        print 'Updated andres resolved cases of the day on sheet with ' + str(andresResolved)
 
     def setOscarQueue(self, Desk):
         """Update oscar queue on sheet"""
@@ -193,7 +193,7 @@ class Sheet:
         """Update oscar resolved cases of the the month on sheet"""
         oscarResolved = Desk.deskOscarResolved()
         sendToSheet(self.cellForOscarResolved, oscarResolved)
-        print 'Updated oscar resolved cases of the month on sheet with ' + str(oscarResolved)
+        print 'Updated oscar resolved cases of the day on sheet with ' + str(oscarResolved)
 
     def setJaimeQueue(self, Desk):
         """Update jaime queue on sheet"""
@@ -205,7 +205,7 @@ class Sheet:
         """Update jaime resolved cases of the the month on sheet"""
         jaimeResolved = Desk.deskJaimeResolved()
         sendToSheet(self.cellForJaimeResolved, jaimeResolved)
-        print 'Updated jaime resolved cases of the month on sheet with ' + str(jaimeResolved)
+        print 'Updated jaime resolved cases of the day on sheet with ' + str(jaimeResolved)
 
     def setBoonQueue(self, Desk):
         """Update boon queue on sheet"""
@@ -217,7 +217,7 @@ class Sheet:
         """Update boon resolved cases of the the month on sheet"""
         boonResolved = Desk.deskBoonResolved()
         sendToSheet(self.cellForBoonResolved, boonResolved)
-        print 'Updated boon resolved cases of the month on sheet with ' + str(boonResolved)
+        print 'Updated boon resolved cases of the day on sheet with ' + str(boonResolved)
 
     def setCGQueue(self, Desk):
         """Update cg queue on sheet"""
@@ -229,7 +229,7 @@ class Sheet:
         """Update cg resolved cases of the the month on sheet"""
         cgResolved = Desk.deskCGResolved()
         sendToSheet(self.cellForCGResolved, cgResolved)
-        print 'Updated cg resolved cases of the month on sheet with ' + str(cgResolved)
+        print 'Updated cg resolved cases of the day on sheet with ' + str(cgResolved)
 
     def setMikeQueue(self, Desk):
         """Update Mike queue on sheet"""
@@ -241,7 +241,7 @@ class Sheet:
         """Update mike resolved cases of the the month on sheet"""
         mikeResolved = Desk.deskMikeResolved()
         sendToSheet(self.cellForMikeResolved, mikeResolved)
-        print 'Updated mike resolved cases of the month on sheet with ' + str(mikeResolved)
+        print 'Updated mike resolved cases of the day on sheet with ' + str(mikeResolved)
 
 print
 print 'Starting update at ' + str(time.strftime("%Y-%m-%d %H:%M"))
