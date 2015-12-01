@@ -120,7 +120,7 @@ class Sheet:
     def setUnassignedCases(self, Desk):
         """Update unassign cases on sheet"""
         unassigned = Desk.deskUnassignedCases()
-        sendToSheet(self.cellForUnassigned, unassigned - 1)
+        sendToSheet(self.cellForUnassigned, unassigned)
         print 'Updated unassign cases on sheet with ' + str(unassigned)
 
     def setOpenThisMonth(self, Desk):
