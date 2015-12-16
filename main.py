@@ -53,13 +53,13 @@ class Desk:
         oscarResolved = getOscarResolved()
         return oscarResolved
 
-    def deskJaimeQueue(self):
-        jaimeQueue = getJaimeQueue()
-        return jaimeQueue
+    def deskJaysenQueue(self):
+        jaysenQueue = getJaysenQueue()
+        return jaysenQueue
 
-    def deskJaimeResolved(self):
-        jaimeResolved = getJaimeResolved()
-        return jaimeResolved
+    def deskJaysenResolved(self):
+        jaysenResolved = getJaysenResolved()
+        return jaysenResolved
 
     def deskBoonQueue(self):
         boonQueue = getBoonQueue()
@@ -102,8 +102,8 @@ class Sheet:
         self.cellForAndresResolved = 'G9'
         self.cellForOscarQueue = 'G18'
         self.cellForOscarResolved = 'G19'
-        self.cellForJaimeQueue = 'G13'
-        self.cellForJaimeResolved = 'G14'
+        self.cellForJaysenQueue = 'G13'
+        self.cellForJaysenResolved = 'G14'
         self.cellForBoonQueue = 'G23'
         self.cellForBoonResolved = 'G24'
         self.cellForCGQueue = 'G28'
@@ -195,17 +195,17 @@ class Sheet:
         sendToSheet(self.cellForOscarResolved, oscarResolved)
         print 'Updated oscar resolved cases of the day on sheet with ' + str(oscarResolved)
 
-    def setJaimeQueue(self, Desk):
-        """Update jaime queue on sheet"""
-        jaimeQueue = Desk.deskJaimeQueue()
-        sendToSheet(self.cellForJaimeQueue, jaimeQueue)
-        print 'Updated jaime queue on sheet with ' + str(jaimeQueue)
+    def setJaysenQueue(self, Desk):
+        """Update jaysen queue on sheet"""
+        jaysenQueue = Desk.deskJaysenQueue()
+        sendToSheet(self.cellForJaysenQueue, jaysenQueue)
+        print 'Updated jaysen queue on sheet with ' + str(jaysenQueue)
 
-    def setJaimeResolved(self, Desk):
-        """Update jaime resolved cases of the the month on sheet"""
-        jaimeResolved = Desk.deskJaimeResolved()
-        sendToSheet(self.cellForJaimeResolved, jaimeResolved)
-        print 'Updated jaime resolved cases of the day on sheet with ' + str(jaimeResolved)
+    def setJaysenResolved(self, Desk):
+        """Update jaysen resolved cases of the the month on sheet"""
+        jaysenResolved = Desk.deskJaysenResolved()
+        sendToSheet(self.cellForJaysenResolved, jaysenResolved)
+        print 'Updated jaysen resolved cases of the day on sheet with ' + str(jaysenResolved)
 
     def setBoonQueue(self, Desk):
         """Update boon queue on sheet"""
@@ -262,8 +262,8 @@ sheet.setAndresQueue(desk)
 sheet.setAndresResolved(desk)
 sheet.setOscarQueue(desk)
 sheet.setOscarResolved(desk)
-sheet.setJaimeQueue(desk)
-sheet.setJaimeResolved(desk)
+sheet.setJaysenQueue(desk)
+sheet.setJaysenResolved(desk)
 sheet.setBoonQueue(desk)
 sheet.setBoonResolved(desk)
 sheet.setCGQueue(desk)
