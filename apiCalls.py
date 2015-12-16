@@ -21,8 +21,8 @@ def getFromAPI(query):
         baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
         APIcall = baseURL + query
         request = urllib2.Request(APIcall)
-        username = ''
-        password = ''
+        username = 'andres.hazard@servicerocket.com'
+        password = 'Desk123456'
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
         request.add_header("Authorization", "Basic %s" % base64string)
         json_obj = urllib2.urlopen(request)
@@ -165,19 +165,19 @@ def getOscarResolved():
     return oscarResolved
 
 
-def getJaimeQueue():
-    # Get queue of Jaime
-    query = 'assigned:%22Jaime%20Cornejo%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    jaimeQueue = getFromAPI(query)
-    return jaimeQueue
+def getJaysenQueue():
+    # Get queue of Jaysen
+    query = 'assigned:%22Jaysen%20Lim%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    jaysenQueue = getFromAPI(query)
+    return jaysenQueue
 
 
-def getJaimeResolved():
-    # Get the resolved cases of the day by Jaime
-    # query = 'assigned:%22Jaime%20Cornejo%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Jaime%20Cornejo%22%20updated:today%20status:resolved'
-    jaimeResolved = getFromAPI(query)
-    return jaimeResolved
+def getJaysenResolved():
+    # Get the resolved cases of the day by Jaysen
+    # query = 'assigned:%22Jaysen%20Lim%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    query = 'assigned:%22Jaysen%20Lim%22%20updated:today%20status:resolved'
+    jaysenResolved = getFromAPI(query)
+    return jaysenResolved
 
 
 def getBoonQueue():
