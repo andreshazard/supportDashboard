@@ -13,7 +13,7 @@ except:
     sys.exit('Error connecting to Google Sheet, check if json file is present and active on Google')
 
 
-def sendToSheet(cell, number):
+def send_to_sheet(cell, number):
     """Send data to sheet"""
     try:
         sheet = "DashBoard Data"  # Name of Google Sheet

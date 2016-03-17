@@ -1,89 +1,6 @@
 #!/usr/bin/python
-import time
 from apiCalls import *
 from sheetConnector import *
-
-
-class Desk:
-    def __init__(self):
-        self.WaCu = getWatingOnCustomerCases()
-        self.AsDev = getAssignedToDevCases()
-        self.AsCSM = getAssginedToCSMCases()
-        self.AsSu = getAgginedToSupport()
-        self.Op = getOpenCases()
-        self.Cl = getCloseCases()
-
-    def deskBacklog(self):
-        backlog = self.WaCu + self.AsCSM + self.AsSu + self.Op + self.Cl
-        return backlog
-
-    def deskUnassignedCases(self):
-        unassigned = getUnassignedCases()
-        return unassigned
-
-    def deskOpenThisMonth(self):
-        openThisMonth = getCreatedCasesOfMonth()
-        return openThisMonth
-
-    def deskCloseThisMonth(self):
-        closeThisMonth = getResolvedCasesOfMonth()
-        return closeThisMonth
-
-    def deskOpenToday(self):
-        openToday = getCreatedCasesOfToday()
-        return openToday
-
-    def deskCloseToday(self):
-        closeToday = getResolvedCasesOfToday()
-        return closeToday
-
-    def deskAndresQueue(self):
-        andresQueue = getAndresQueue()
-        return andresQueue
-
-    def deskAndresResolved(self):
-        andresResolved = getAndresResolved()
-        return andresResolved
-
-    def deskOscarQueue(self):
-        oscarQueue = getOscarQueue()
-        return oscarQueue
-
-    def deskOscarResolved(self):
-        oscarResolved = getOscarResolved()
-        return oscarResolved
-
-    def deskJaysenQueue(self):
-        jaysenQueue = getJaysenQueue()
-        return jaysenQueue
-
-    def deskJaysenResolved(self):
-        jaysenResolved = getJaysenResolved()
-        return jaysenResolved
-
-    def deskBoonQueue(self):
-        boonQueue = getBoonQueue()
-        return boonQueue
-
-    def deskBoonResolved(self):
-        boonResolved = getBoonResolved()
-        return boonResolved
-
-    def deskCGQueue(self):
-        cgQueue = getCGQueue()
-        return cgQueue
-
-    def deskCGResolved(self):
-        cgResolved = getCGResolved()
-        return cgResolved
-
-    def deskMikeQueue(self):
-        mikeQueue = getMikeQueue()
-        return mikeQueue
-
-    def deskMikeResolved(self):
-        mikeResolved = getMikeResolved()
-        return mikeResolved
 
 
 class Sheet:
@@ -110,163 +27,166 @@ class Sheet:
         self.cellForCGResolved = 'G29'
         self.cellForMikeQueue = 'G33'
         self.cellForMikeResolved = 'G34'
+        self.WaCu = get_waiting_on_customer_cases()
+        self.AsDev = get_assigned_to_dev_cases()
+        self.AsCSM = get_assigned_to_csm_cases()
+        self.AsSu = get_assigned_to_support()
+        self.Op = get_open_cases()
+        self.Cl = get_close_cases()
 
-    def setBacklog(self, Desk):
+    def set_backlog(self):
         """Update backlog on sheet"""
-        backlog = Desk.deskBacklog()
-        sendToSheet(self.cellForBacklog, backlog)
+        backlog = self.WaCu + self.AsCSM + self.AsSu + self.Op + self.Cl
+        send_to_sheet(self.cellForBacklog, backlog)
         print 'Updated backlog on data sheet with ' + str(backlog)
 
-    def setUnassignedCases(self, Desk):
+    def set_unassigned_cases(self):
         """Update unassign cases on sheet"""
-        unassigned = Desk.deskUnassignedCases()
-        sendToSheet(self.cellForUnassigned, unassigned)
+        unassigned = get_unassigned_cases()
+        send_to_sheet(self.cellForUnassigned, unassigned)
         print 'Updated unassign cases on sheet with ' + str(unassigned)
 
-    def setOpenThisMonth(self, Desk):
+    def set_open_this_month(self):
         """Update open cases of the month on sheet"""
-        openThisMonth = Desk.deskOpenThisMonth()
-        sendToSheet(self.cellForOpenThisMonth, openThisMonth)
-        print 'Updated open cases of the month on sheet with ' + str(openThisMonth)
+        open_this_month = get_created_cases_of_month()
+        send_to_sheet(self.cellForOpenThisMonth, open_this_month)
+        print 'Updated open cases of the month on sheet with ' + str(open_this_month)
 
-    def setCloseThisMonth(self, Desk):
+    def set_close_this_month(self):
         """Update close cases of the month on sheet"""
-        closeThisMonth = Desk.deskCloseThisMonth()
-        sendToSheet(self.cellForCloseThisMonth, closeThisMonth)
-        print 'Updated close cases of the month on sheet with ' + str(closeThisMonth)
+        close_this_month = get_resolved_cases_of_month()
+        send_to_sheet(self.cellForCloseThisMonth, close_this_month)
+        print 'Updated close cases of the month on sheet with ' + str(close_this_month)
 
-    def setWatingOnCustomer(self, Desk):
+    def set_waiting_on_customer(self):
         """Update waiting on customer cases on sheet"""
-        waitingOnCustomer = Desk.WaCu
-        sendToSheet(self.cellForWaitingOnCustomer, waitingOnCustomer)
-        print 'Updated waiting on customer cases on sheet with ' + str(waitingOnCustomer)
+        waiting_on_customer = self.WaCu
+        send_to_sheet(self.cellForWaitingOnCustomer, waiting_on_customer)
+        print 'Updated waiting on customer cases on sheet with ' + str(waiting_on_customer)
 
-    def setAssignedToDev(self, Desk):
+    def set_assigned_to_cev(self):
         """Update assigned to dev cases on sheet"""
-        assignedToDev = Desk.AsDev
-        sendToSheet(self.cellForAssignedToDev, assignedToDev)
-        print 'Updated assigned to dev cases on sheet with ' + str(assignedToDev)
+        assigned_to_dev = self.AsDev
+        send_to_sheet(self.cellForAssignedToDev, assigned_to_dev)
+        print 'Updated assigned to dev cases on sheet with ' + str(assigned_to_dev)
 
-    def setAssignedToSupport(self, Desk):
+    def set_assigned_to_support(self):
         """Update assigned to support cases on sheet"""
-        assignedToSupport = Desk.AsSu
-        sendToSheet(self.cellForAssignedToSupport, assignedToSupport)
-        print 'Updated assigned to support cases on sheet with ' + str(assignedToSupport)
+        assigned_to_support = self.AsSu
+        send_to_sheet(self.cellForAssignedToSupport, assigned_to_support)
+        print 'Updated assigned to support cases on sheet with ' + str(assigned_to_support)
 
-    def setAssignedToCSM(self, Desk):
+    def set_assigned_to_csm(self):
         """Update assigned to CSM cases on sheet"""
-        assignedToCSM = Desk.AsCSM
-        sendToSheet(self.cellForAssignedToCSM, assignedToCSM)
-        print 'Updated assigned to CSM cases on sheet with ' + str(assignedToCSM)
+        assigned_to_csm = self.AsCSM
+        send_to_sheet(self.cellForAssignedToCSM, assigned_to_csm)
+        print 'Updated assigned to CSM cases on sheet with ' + str(assigned_to_csm)
 
-    def setOpenToday(self, Desk):
+    def set_open_today(self):
         """Update open cases of today on sheet"""
-        openToday = Desk.deskOpenToday()
-        sendToSheet(self.cellForOpenToday, openToday)
-        print 'Update open cases of today on sheet with ' + str(openToday)
+        open_today = get_created_cases_of_today()
+        send_to_sheet(self.cellForOpenToday, open_today)
+        print 'Update open cases of today on sheet with ' + str(open_today)
 
-    def setCloseToday(self, Desk):
+    def set_close_today(self):
         """Update close cases of today on sheet"""
-        closeToday = Desk.deskCloseToday()
-        sendToSheet(self.cellForCloseToday, closeToday)
-        print 'Update close cases of today on sheet with ' + str(closeToday)
+        close_today = get_resolved_cases_of_today()
+        send_to_sheet(self.cellForCloseToday, close_today)
+        print 'Update close cases of today on sheet with ' + str(close_today)
 
-    def setAndresQueue(self, Desk):
+    def set_andres_queue(self):
         """Update andres queue on sheet"""
-        andresQueue = Desk.deskAndresQueue()
-        sendToSheet(self.cellForAndresQueue, andresQueue)
-        print 'Updated andres queue on sheet with ' + str(andresQueue)
+        andres_queue = get_andres_queue()
+        send_to_sheet(self.cellForAndresQueue, andres_queue)
+        print 'Updated andres queue on sheet with ' + str(andres_queue)
 
-    def setAndresResolved(self, Desk):
+    def set_andres_resolved(self):
         """Update andres resolved cases of the the month on sheet"""
-        andresResolved = Desk.deskAndresResolved()
-        sendToSheet(self.cellForAndresResolved, andresResolved)
-        print 'Updated andres resolved cases of the day on sheet with ' + str(andresResolved)
+        andres_resolved = get_andres_resolved()
+        send_to_sheet(self.cellForAndresResolved, andres_resolved)
+        print 'Updated andres resolved cases of the day on sheet with ' + str(andres_resolved)
 
-    def setOscarQueue(self, Desk):
+    def set_oscar_queue(self):
         """Update oscar queue on sheet"""
-        oscarQueue = Desk.deskOscarQueue()
-        sendToSheet(self.cellForOscarQueue, oscarQueue)
-        print 'Updated oscar queue on sheet with ' + str(oscarQueue)
+        oscar_queue = get_oscar_queue()
+        send_to_sheet(self.cellForOscarQueue, oscar_queue)
+        print 'Updated oscar queue on sheet with ' + str(oscar_queue)
 
-    def setOscarResolved(self, Desk):
+    def set_oscar_resolved(self):
         """Update oscar resolved cases of the the month on sheet"""
-        oscarResolved = Desk.deskOscarResolved()
-        sendToSheet(self.cellForOscarResolved, oscarResolved)
-        print 'Updated oscar resolved cases of the day on sheet with ' + str(oscarResolved)
+        oscar_resolved = get_oscar_resolved()
+        send_to_sheet(self.cellForOscarResolved, oscar_resolved)
+        print 'Updated oscar resolved cases of the day on sheet with ' + str(oscar_resolved)
 
-    def setJaysenQueue(self, Desk):
+    def set_jaysen_queue(self):
         """Update jaysen queue on sheet"""
-        jaysenQueue = Desk.deskJaysenQueue()
-        sendToSheet(self.cellForJaysenQueue, jaysenQueue)
-        print 'Updated jaysen queue on sheet with ' + str(jaysenQueue)
+        jaysen_queue = get_jaysen_queue()
+        send_to_sheet(self.cellForJaysenQueue, jaysen_queue)
+        print 'Updated jaysen queue on sheet with ' + str(jaysen_queue)
 
-    def setJaysenResolved(self, Desk):
+    def set_jaysen_resolved(self):
         """Update jaysen resolved cases of the the month on sheet"""
-        jaysenResolved = Desk.deskJaysenResolved()
-        sendToSheet(self.cellForJaysenResolved, jaysenResolved)
-        print 'Updated jaysen resolved cases of the day on sheet with ' + str(jaysenResolved)
+        jaysen_resolved = get_jaysen_resolved()
+        send_to_sheet(self.cellForJaysenResolved, jaysen_resolved)
+        print 'Updated jaysen resolved cases of the day on sheet with ' + str(jaysen_resolved)
 
-    def setBoonQueue(self, Desk):
+    def set_boon_queue(self):
         """Update boon queue on sheet"""
-        boonQueue = Desk.deskBoonQueue()
-        sendToSheet(self.cellForBoonQueue, boonQueue)
-        print 'Updated boon queue on sheet with ' + str(boonQueue)
+        boon_queue = get_boon_queue()
+        send_to_sheet(self.cellForBoonQueue, boon_queue)
+        print 'Updated boon queue on sheet with ' + str(boon_queue)
 
-    def setBoonResolved(self, Desk):
+    def set_boon_resolved(self):
         """Update boon resolved cases of the the month on sheet"""
-        boonResolved = Desk.deskBoonResolved()
-        sendToSheet(self.cellForBoonResolved, boonResolved)
-        print 'Updated boon resolved cases of the day on sheet with ' + str(boonResolved)
+        boon_resolved = get_boon_resolved()
+        send_to_sheet(self.cellForBoonResolved, boon_resolved)
+        print 'Updated boon resolved cases of the day on sheet with ' + str(boon_resolved)
 
-    def setCGQueue(self, Desk):
+    def set_cg_queue(self):
         """Update cg queue on sheet"""
-        cgQueue = Desk.deskCGQueue()
-        sendToSheet(self.cellForCGQueue, cgQueue)
-        print 'Updated cg queue on sheet with ' + str(cgQueue)
+        cg_queue = get_cg_queue()
+        send_to_sheet(self.cellForCGQueue, cg_queue)
+        print 'Updated cg queue on sheet with ' + str(cg_queue)
 
-    def setCGResolved(self, Desk):
+    def set_cg_resolved(self, Desk):
         """Update cg resolved cases of the the month on sheet"""
-        cgResolved = Desk.deskCGResolved()
-        sendToSheet(self.cellForCGResolved, cgResolved)
-        print 'Updated cg resolved cases of the day on sheet with ' + str(cgResolved)
+        cg_resolved = get_cg_resolved()
+        send_to_sheet(self.cellForCGResolved, cg_resolved)
+        print 'Updated cg resolved cases of the day on sheet with ' + str(cg_resolved)
 
-    def setMikeQueue(self, Desk):
+    def set_mike_queue(self, Desk):
         """Update Mike queue on sheet"""
-        mikeQueue = Desk.deskMikeQueue()
-        sendToSheet(self.cellForMikeQueue, mikeQueue)
-        print 'Updated mike queue on sheet with ' + str(mikeQueue)
+        mike_queue = get_mike_queue()
+        send_to_sheet(self.cellForMikeQueue, mike_queue)
+        print 'Updated mike queue on sheet with ' + str(mike_queue)
 
-    def setMikeResolved(self, Desk):
+    def set_mike_resolved(self):
         """Update mike resolved cases of the the month on sheet"""
-        mikeResolved = Desk.deskMikeResolved()
-        sendToSheet(self.cellForMikeResolved, mikeResolved)
-        print 'Updated mike resolved cases of the day on sheet with ' + str(mikeResolved)
+        mike_resolved = get_mike_resolved()
+        send_to_sheet(self.cellForMikeResolved, mike_resolved)
+        print 'Updated mike resolved cases of the day on sheet with ' + str(mike_resolved)
 
 print
 print 'Starting update at ' + str(time.strftime("%Y-%m-%d %H:%M"))
 print
-desk = Desk()
 sheet = Sheet()
-sheet.setBacklog(desk)
-sheet.setUnassignedCases(desk)
-# sheet.setOpenThisMonth(desk)
-# sheet.setCloseThisMonth(desk)
-sheet.setWatingOnCustomer(desk)
-sheet.setAssignedToDev(desk)
-sheet.setAssignedToSupport(desk)
-sheet.setAssignedToCSM(desk)
-sheet.setOpenToday(desk)
-sheet.setCloseToday(desk)
-sheet.setAndresQueue(desk)
-sheet.setAndresResolved(desk)
-sheet.setOscarQueue(desk)
-sheet.setOscarResolved(desk)
-sheet.setJaysenQueue(desk)
-sheet.setJaysenResolved(desk)
-sheet.setBoonQueue(desk)
-sheet.setBoonResolved(desk)
-sheet.setCGQueue(desk)
-sheet.setCGResolved(desk)
-sheet.setMikeQueue(desk)
-sheet.setMikeResolved(desk)
+sheet.set_backlog()
+sheet.set_unassigned_cases()
+sheet.set_waiting_on_customer()
+sheet.set_assigned_to_cev()
+sheet.set_assigned_to_support()
+sheet.set_assigned_to_csm()
+sheet.set_open_today()
+sheet.set_close_today()
+sheet.set_andres_queue()
+sheet.set_andres_resolved()
+sheet.set_oscar_queue()
+sheet.set_oscar_resolved()
+sheet.set_jaysen_queue()
+sheet.set_jaysen_resolved()
+sheet.set_boon_queue()
+sheet.set_boon_resolved()
+sheet.set_cg_queue()
+sheet.set_cg_resolved()
+sheet.set_mike_queue()
+sheet.set_mike_resolved()

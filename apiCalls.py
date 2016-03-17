@@ -7,20 +7,20 @@ import datetime
 from datetime import date
 
 
-def firstDayOfMonth(d):
+def first_day_of_month(d):
     return str(date(d.year, d.month, 1))
 
 
-def dateToTimestamp(d):
+def date_to_time_stamp(d):
     return int(time.mktime(datetime.datetime.strptime(d, "%Y-%m-%d").timetuple()))
 
 
-def getFromAPI(query):
+def get_from_api(query):
     try:
         # Generate call from API
-        baseURL = 'https://servicerocket.desk.com/api/v2/cases/search?q='
-        APIcall = baseURL + query
-        request = urllib2.Request(APIcall)
+        base_url = 'https://servicerocket.desk.com/api/v2/cases/search?q='
+        api_call = base_url + query
+        request = urllib2.Request(api_call)
         username = ''
         password = ''
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
@@ -32,198 +32,186 @@ def getFromAPI(query):
         sys.exit('Error getting data from Desk. Check if username and password are correct')
 
 
-def getUnassignedCases():
+def get_unassigned_cases():
     # Get the amount of Unassigned cases
     query = 'assigned:NONE%20group:Learndot%20status:new,open,pending'
-    UnassignedCases = getFromAPI(query)
-    return UnassignedCases
+    unassigned_cases = get_from_api(query)
+    return unassigned_cases
 
 
-def getWatingOnCustomerCases():
-    # Get the amout of Waiting on Customer cases
+def get_waiting_on_customer_cases():
+    # Get the amount of Waiting on Customer cases
     query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Waiting%20on%20Customer%22'
-    WatingOnCustomer = getFromAPI(query)
-    return WatingOnCustomer
+    waiting_on_customer = get_from_api(query)
+    return waiting_on_customer
 
 
-def getAssignedToDevCases():
-    # Get the amout of Assigned To Dev cases
+def get_assigned_to_dev_cases():
+    # Get the amount of Assigned To Dev cases
     query = 'group:Learndot%20status:pending%20custom_status:%22Assigned%20to%20DEV%22'
-    AssignedToDev = getFromAPI(query)
-    return AssignedToDev
+    assigned_to_dev = get_from_api(query)
+    return assigned_to_dev
 
 
-def getAssginedToCSMCases():
-    # Get the amout of Assigned To CSM
+def get_assigned_to_csm_cases():
+    # Get the amount of Assigned To CSM
     query = 'group:Learndot%20status:new,open,pending%20custom_status:%22Assigned%20to%20CSM%22'
-    AssignedToCSM = getFromAPI(query)
-    return AssignedToCSM
+    assigned_to_csm = get_from_api(query)
+    return assigned_to_csm
 
 
-def getAgginedToSupport():
+def get_assigned_to_support():
     # Get the amout of Assigned To Support
     query = 'group:Learndot%20status:open,new,pending%20custom_status:%22Assigned%20to%20Support%22'
-    AssignedToSupport = getFromAPI(query)
-    return AssignedToSupport
+    assigned_to_support = get_from_api(query)
+    return assigned_to_support
 
 
-def getOpenCases():
+def get_open_cases():
     # Get the amout of Open
     query = 'group:Learndot%20status:new,open,pending%20custom_status:Open'
-    Open = getFromAPI(query)
-    return Open
+    open_cases = get_from_api(query)
+    return open_cases
 
 
-def getCloseCases():
+def get_close_cases():
     # Get the amout of Close
     query = 'group:Learndot%20status:new,open,pending%20custom_status:Close'
-    Open = getFromAPI(query)
-    return Open
+    open_cases = get_from_api(query)
+    return open_cases
 
 
-def getResolvedCasesOfMonth():
+def get_resolved_cases_of_month():
     # Get resolved cases of current month
-    query = 'group:Learndot%20%28ticket_customer.updated_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
-    ResolvedCases = getFromAPI(query)
-    return ResolvedCases
+    query = 'group:Learndot%20%28ticket_customer.updated_at:%5B' + str(firstDay) + '%20TO%20' + str(
+        today) + '%5D%29%20status:resolved'
+    resolved_cases = get_from_api(query)
+    return resolved_cases
 
 
-def getCreatedCasesOfMonth():
+def get_created_cases_of_month():
     # Get created cases of current month
     query = 'group:Learndot%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29'
-    CreatedCases = getFromAPI(query)
-    return CreatedCases
+    created_cases = get_from_api(query)
+    return created_cases
 
 
-def getCreatedCasesOfToday():
+def get_created_cases_of_today():
     # Get created cases of today
     query = 'group:Learndot%20created:today'
-    CreatedCases = getFromAPI(query)
-    return CreatedCases
+    created_cases = get_from_api(query)
+    return created_cases
 
 
-def getResolvedCasesOfToday():
+def get_resolved_cases_of_today():
     # Get resolved cases of today
     query = 'group:Learndot%20updated:today%20status:resolved'
-    ResolvedCases = getFromAPI(query)
-    return ResolvedCases
+    resolved_cases = get_from_api(query)
+    return resolved_cases
 
 
-def getCreatedCasesOfLastThreeMonth():
-    # Get crested cases of the last three months
-    dateRanges = getRangeOfLastThreeMonth()
-    results = []
-    for x in dateRanges:
-        firstRange = int(x[0])
-        secondRange = int(x[1])
-        query = 'group:Learndot%20(ticket_customer.created_at:%5B' + str(firstRange) + '%20TO%20' + str(secondRange) + '%5D)%20label:%22%21Spam%22'
-        createdCasesInRange = getFromAPI(query)
-        results.append(createdCasesInRange)
-    return results
-
-
-def getResolvedCasesOfLastThreeMonth():
-    # Get Resolved cases of the last three months
-    dateRanges = getRangeOfLastThreeMonth()
-    results = []
-    for x in dateRanges:
-        firstRange = int(x[0])
-        secondRange = int(x[1])
-        query = 'group:Learndot%20(ticket_customer.updated_at:%5B' + str(firstRange) + '%20TO%20' + str(secondRange) + '%5D)%20status:resolved,closed%20label:%22%21Spam%22'
-        resolvedCasesinRange = getFromAPI(query)
-        results.append(resolvedCasesinRange)
-    return results
-
-
-def getAndresQueue():
+def get_andres_queue():
     # Get queue of Andres
-    query = 'assigned:%22Andres%20Hazard%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    andresQueue = getFromAPI(query)
-    return andresQueue
+    query = 'assigned:%22Andres%20Hazard%22%20status:open,new,pending%20custom_status:%22Open,' \
+            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    andres_queue = get_from_api(query)
+    return andres_queue
 
 
-def getAndresResolved():
+def get_andres_resolved():
     # Get the resolved cases of the day by Andres
-    # query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' +
+    # str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Andres%20Hazard%22%20updated:today%20status:resolved'
-    andresResolved = getFromAPI(query)
-    return andresResolved
+    andres_resolved = get_from_api(query)
+    return andres_resolved
 
 
-def getOscarQueue():
+def get_oscar_queue():
     # Get queue of Oscar
-    query = 'assigned:%22Oscar%20Rivas%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    oscarQueue = getFromAPI(query)
-    return oscarQueue
+    query = 'assigned:%22Oscar%20Rivas%22%20status:open,new,pending%20custom_status:%22Open,' \
+            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    oscar_queue = get_from_api(query)
+    return oscar_queue
 
 
-def getOscarResolved():
+def get_oscar_resolved():
     # Get the resolved cases of the day by Oscar
-    # query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' +
+    # str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Oscar%20Rivas%22%20updated:today%20status:resolved'
-    oscarResolved = getFromAPI(query)
-    return oscarResolved
+    oscar_resolved = get_from_api(query)
+    return oscar_resolved
 
 
-def getJaysenQueue():
+def get_jaysen_queue():
     # Get queue of Jaysen
-    query = 'assigned:%22Jaysen%20Lim%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    jaysenQueue = getFromAPI(query)
-    return jaysenQueue
+    query = 'assigned:%22Jaysen%20Lim%22%20status:open,new,pending%20custom_status:%22Open,' \
+            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    jaysen_queue = get_from_api(query)
+    return jaysen_queue
 
 
-def getJaysenResolved():
+def get_jaysen_resolved():
     # Get the resolved cases of the day by Jaysen
-    # query = 'assigned:%22Jaysen%20Lim%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # query = 'assigned:%22Jaysen%20Lim%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' +
+    # str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Jaysen%20Lim%22%20updated:today%20status:resolved'
-    jaysenResolved = getFromAPI(query)
-    return jaysenResolved
+    jaysen_resolved = get_from_api(query)
+    return jaysen_resolved
 
 
-def getBoonQueue():
+def get_boon_queue():
     # Get queue of Boon
-    query = 'assigned:%22Yik%20Boon%20Tan%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    boonQueue = getFromAPI(query)
-    return boonQueue
+    query = 'assigned:%22Yik%20Boon%20Tan%22%20status:open,new,pending%20custom_status:%22Open,' \
+            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    boon_queue = get_from_api(query)
+    return boon_queue
 
 
-def getBoonResolved():
+def get_boon_resolved():
     # Get the resolved cases of the day by Boon
-    # query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20'
+    # + str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Yik%20Boon%20Tan%22%20updated:today%20status:resolved'
-    boonResolved = getFromAPI(query)
-    return boonResolved
+    boon_resolved = get_from_api(query)
+    return boon_resolved
 
 
-def getCGQueue():
-    # Get queue of CG
-    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    cgQueue = getFromAPI(query)
-    return cgQueue
+def get_cg_queue():
+    # get queue of cg
+    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20status:open,new,pending%20custom_status:%22Open,' \
+            'Assigned%20to%20Support,' \
+            'Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    cg_queue = get_from_api(query)
+    return cg_queue
 
 
-def getCGResolved():
-    # Get the resolved cases of the day by CG
-    # query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+def get_cg_resolved():
+    # get the resolved cases of the day by cg
+    # query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20'
+    # + str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Goh%20Chooi%20Gaik%22%20updated:today%20status:resolved'
-    cgResolved = getFromAPI(query)
-    return cgResolved
+    cg_resolved = get_from_api(query)
+    return cg_resolved
 
 
-def getMikeQueue():
+def get_mike_queue():
     # Get queue of Mike
-    query = 'assigned:%22Mike%20Dawson%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    mikeQueue = getFromAPI(query)
-    return mikeQueue
+    query = 'assigned:%22Mike%20Dawson%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,' \
+            'Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
+    mike_queue = get_from_api(query)
+    return mike_queue
 
 
-def getMikeResolved():
+def get_mike_resolved():
     # Get the resolved cases of the day by CG
-    # query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
+    # query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) +
+    # '%20TO%20' + str(today) + '%5D%29%20status:resolved'
     query = 'assigned:%22Mike%20Dawson%22%20updated:today%20status:resolved'
-    mikeResolved = getFromAPI(query)
-    return mikeResolved
+    mike_resolved = get_from_api(query)
+    return mike_resolved
 
 
-firstDay = dateToTimestamp(firstDayOfMonth(date.today()))
-today = dateToTimestamp(str(date.today()))
+firstDay = date_to_time_stamp(first_day_of_month(date.today()))
+today = date_to_time_stamp(str(date.today()))
