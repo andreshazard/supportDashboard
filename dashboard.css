@@ -1,9 +1,28 @@
 body, #dashboard-wrapper {
     background-color: #202020;
-    background-image: url(https://daks2k3a4ib2z.cloudfront.net/54c82c87a97006f114a9020d/54c82e09c794d6f3145b37e5_learndot-white.png);
     background-repeat: no-repeat;
     background-position: 10% 5%
+    font: 14px/1 "aktiv-grotesk-std", Arial, sans-serif, FontAwesome
 }
+.label {
+
+    font-size:20px
+}
+
+.value {
+
+    font-size:22px
+}
+
+tspan {
+
+    font-size:20px;
+    color:white;
+    font-weight:bolder;
+    fill:white;
+}
+
+
 .widget .widget-inner > header {
         background-color: #12DCFF;
 }
@@ -12,7 +31,7 @@ body, #dashboard-wrapper {
 }
 .widget .widget-inner > header h1 {
     color: #2A2F32;
-    font-size: 19px;
+    font-size: 28px;
     font-weight: 900;
     margin-bottom: 0;
     line-height: 17px;
