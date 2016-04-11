@@ -19,6 +19,8 @@ class Sheet:
         self.cellForAndresResolved = 'G9'
         self.cellForOscarQueue = 'G18'
         self.cellForOscarResolved = 'G19'
+        self.cellForRolandoQueue = 'K8'
+        self.cellForRolandoResolved = 'K9'
         self.cellForJaysenQueue = 'G13'
         self.cellForJaysenResolved = 'G14'
         self.cellForBoonQueue = 'G23'
@@ -94,77 +96,29 @@ class Sheet:
         send_to_sheet(self.cellForCloseToday, close_today)
         print 'Update close cases of today on sheet with ' + str(close_today)
 
-    def set_andres_queue(self):
-        """Update andres queue on sheet"""
-        andres_queue = get_andres_queue()
-        send_to_sheet(self.cellForAndresQueue, andres_queue)
-        print 'Updated andres queue on sheet with ' + str(andres_queue)
+    def set_engineer_queue_two_names(self, name, last_name, cell_queue):
+        """Update engineer queue on sheet"""
+        engineer_queue = get_query_of_engineer_two_names(name, last_name)
+        send_to_sheet(cell_queue, engineer_queue)
+        print 'Updated ' + name + ' queue on sheet with ' + str(engineer_queue)
 
-    def set_andres_resolved(self):
-        """Update andres resolved cases of the the month on sheet"""
-        andres_resolved = get_andres_resolved()
-        send_to_sheet(self.cellForAndresResolved, andres_resolved)
-        print 'Updated andres resolved cases of the day on sheet with ' + str(andres_resolved)
+    def set_engineer_queue_three_names(self, name, second_name, last_name, cell_queue):
+        """Update engineer queue on sheet"""
+        engineer_queue = get_query_of_engineer_three_names(name, second_name, last_name)
+        send_to_sheet(cell_queue, engineer_queue)
+        print 'Updated ' + name + ' queue on sheet with ' + str(engineer_queue)
 
-    def set_oscar_queue(self):
-        """Update oscar queue on sheet"""
-        oscar_queue = get_oscar_queue()
-        send_to_sheet(self.cellForOscarQueue, oscar_queue)
-        print 'Updated oscar queue on sheet with ' + str(oscar_queue)
+    def set_engineer_resolved_two_names(self, name, last_name, cell_queue):
+        """Update engineer resolved on sheet"""
+        engineer_resolved = get_resolved_of_engineer_two_names(name, last_name)
+        send_to_sheet(cell_queue, engineer_resolved)
+        print 'Updated ' + name + ' resolved cases of the day on sheet with ' + str(engineer_resolved)
 
-    def set_oscar_resolved(self):
-        """Update oscar resolved cases of the the month on sheet"""
-        oscar_resolved = get_oscar_resolved()
-        send_to_sheet(self.cellForOscarResolved, oscar_resolved)
-        print 'Updated oscar resolved cases of the day on sheet with ' + str(oscar_resolved)
-
-    def set_jaysen_queue(self):
-        """Update jaysen queue on sheet"""
-        jaysen_queue = get_jaysen_queue()
-        send_to_sheet(self.cellForJaysenQueue, jaysen_queue)
-        print 'Updated jaysen queue on sheet with ' + str(jaysen_queue)
-
-    def set_jaysen_resolved(self):
-        """Update jaysen resolved cases of the the month on sheet"""
-        jaysen_resolved = get_jaysen_resolved()
-        send_to_sheet(self.cellForJaysenResolved, jaysen_resolved)
-        print 'Updated jaysen resolved cases of the day on sheet with ' + str(jaysen_resolved)
-
-    def set_boon_queue(self):
-        """Update boon queue on sheet"""
-        boon_queue = get_boon_queue()
-        send_to_sheet(self.cellForBoonQueue, boon_queue)
-        print 'Updated boon queue on sheet with ' + str(boon_queue)
-
-    def set_boon_resolved(self):
-        """Update boon resolved cases of the the month on sheet"""
-        boon_resolved = get_boon_resolved()
-        send_to_sheet(self.cellForBoonResolved, boon_resolved)
-        print 'Updated boon resolved cases of the day on sheet with ' + str(boon_resolved)
-
-    def set_cg_queue(self):
-        """Update cg queue on sheet"""
-        cg_queue = get_cg_queue()
-        send_to_sheet(self.cellForCGQueue, cg_queue)
-        print 'Updated cg queue on sheet with ' + str(cg_queue)
-
-    def set_cg_resolved(self, Desk):
-        """Update cg resolved cases of the the month on sheet"""
-        cg_resolved = get_cg_resolved()
-        send_to_sheet(self.cellForCGResolved, cg_resolved)
-        print 'Updated cg resolved cases of the day on sheet with ' + str(cg_resolved)
-
-    def set_mike_queue(self, Desk):
-        """Update Mike queue on sheet"""
-        mike_queue = get_mike_queue()
-        send_to_sheet(self.cellForMikeQueue, mike_queue)
-        print 'Updated mike queue on sheet with ' + str(mike_queue)
-
-    def set_mike_resolved(self):
-        """Update mike resolved cases of the the month on sheet"""
-        mike_resolved = get_mike_resolved()
-        send_to_sheet(self.cellForMikeResolved, mike_resolved)
-        print 'Updated mike resolved cases of the day on sheet with ' + str(mike_resolved)
+    def set_engineer_resolved_three_names(self, name, second_name, last_name, cell_queue):
+        """Update engineer resolved on sheet"""
+        engineer_queue = get_resolved_of_engineer_three_names(name, second_name, last_name)
+        send_to_sheet(cell_queue, engineer_queue)
+        print 'Updated ' + name + ' resolved on sheet with ' + str(engineer_queue)
 
 print
 print 'Starting update at ' + str(time.strftime("%Y-%m-%d %H:%M"))
@@ -178,15 +132,17 @@ sheet.set_assigned_to_support()
 sheet.set_assigned_to_csm()
 sheet.set_open_today()
 sheet.set_close_today()
-sheet.set_andres_queue()
-sheet.set_andres_resolved()
-sheet.set_oscar_queue()
-sheet.set_oscar_resolved()
-sheet.set_jaysen_queue()
-sheet.set_jaysen_resolved()
-sheet.set_boon_queue()
-sheet.set_boon_resolved()
-sheet.set_cg_queue()
-sheet.set_cg_resolved()
-sheet.set_mike_queue()
-sheet.set_mike_resolved()
+sheet.set_engineer_queue_two_names('Andres', 'Hazard', sheet.cellForAndresQueue)
+sheet.set_engineer_resolved_two_names('Andres', 'Hazard', sheet.cellForAndresResolved)
+sheet.set_engineer_queue_two_names('Oscar', 'Rivas', sheet.cellForOscarQueue)
+sheet.set_engineer_resolved_two_names('Oscar', 'Rivas', sheet.cellForOscarResolved)
+sheet.set_engineer_queue_two_names('Rolando', 'Bergmann', sheet.cellForRolandoQueue)
+sheet.set_engineer_resolved_two_names('Rolando', 'Bergmann', sheet.cellForRolandoResolved)
+sheet.set_engineer_queue_two_names('Jaysen', 'Lim', sheet.cellForJaysenQueue)
+sheet.set_engineer_resolved_two_names('Jaysen', 'Lim', sheet.cellForJaysenResolved)
+sheet.set_engineer_queue_three_names('Yik', 'Boon', 'Tan', sheet.cellForBoonQueue)
+sheet.set_engineer_resolved_three_names('Yik', 'Boon', 'Tan', sheet.cellForBoonResolved)
+sheet.set_engineer_queue_three_names('Goh', 'Chooi', 'Gaik', sheet.cellForCGQueue)
+sheet.set_engineer_resolved_three_names('Goh', 'Chooi', 'Gaik', sheet.cellForCGResolved)
+sheet.set_engineer_queue_two_names('Mike', 'Dawson', sheet.cellForJaysenQueue)
+sheet.set_engineer_resolved_two_names('Mike', 'Dawson', sheet.cellForJaysenResolved)

@@ -21,8 +21,8 @@ def get_from_api(query):
         base_url = 'https://servicerocket.desk.com/api/v2/cases/search?q='
         api_call = base_url + query
         request = urllib2.Request(api_call)
-        username = ''
-        password = ''
+        username = 'andres.hazard@servicerocket.com'
+        password = 'Desk123456'
         base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
         request.add_header("Authorization", "Basic %s" % base64string)
         json_obj = urllib2.urlopen(request)
@@ -110,107 +110,32 @@ def get_resolved_cases_of_today():
     return resolved_cases
 
 
-def get_andres_queue():
-    # Get queue of Andres
-    query = 'assigned:%22Andres%20Hazard%22%20status:open,new,pending%20custom_status:%22Open,' \
+def get_query_of_engineer_two_names(name, last_name):
+    # Get query of engineer with two names
+    query = 'assigned:%22' + name + '%20' + last_name + '%22%20status:open,new,pending%20custom_status:%22Open,' \
             'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    andres_queue = get_from_api(query)
-    return andres_queue
+    engineer_query = get_from_api(query)
+    return engineer_query
 
 
-def get_andres_resolved():
-    # Get the resolved cases of the day by Andres
-    # query = 'assigned:%22Andres%20Hazard%22%20%28ticket_customer.created_at:%5B' +
-    # str(firstDay) + '%20TO%20' + str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Andres%20Hazard%22%20updated:today%20status:resolved'
-    andres_resolved = get_from_api(query)
-    return andres_resolved
-
-
-def get_oscar_queue():
-    # Get queue of Oscar
-    query = 'assigned:%22Oscar%20Rivas%22%20status:open,new,pending%20custom_status:%22Open,' \
+def get_query_of_engineer_three_names(name, second_name, last_name):
+    # Get query of engineer with three names
+    query = 'assigned:%22' + name + '%20' + second_name + '%20' + last_name + '%22%20status:open,new,pending%20custom_status:%22Open,' \
             'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    oscar_queue = get_from_api(query)
-    return oscar_queue
+    engineer_queue = get_from_api(query)
+    return engineer_queue
 
 
-def get_oscar_resolved():
-    # Get the resolved cases of the day by Oscar
-    # query = 'assigned:%22Oscar%20Rivas%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' +
-    # str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Oscar%20Rivas%22%20updated:today%20status:resolved'
-    oscar_resolved = get_from_api(query)
-    return oscar_resolved
+def get_resolved_of_engineer_two_names(name, last_name):
+    query = 'assigned:%22' + name + '%20' + last_name + '%22%20updated:today%20status:resolved'
+    engineer_resolved = get_from_api(query)
+    return engineer_resolved
 
 
-def get_jaysen_queue():
-    # Get queue of Jaysen
-    query = 'assigned:%22Jaysen%20Lim%22%20status:open,new,pending%20custom_status:%22Open,' \
-            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    jaysen_queue = get_from_api(query)
-    return jaysen_queue
-
-
-def get_jaysen_resolved():
-    # Get the resolved cases of the day by Jaysen
-    # query = 'assigned:%22Jaysen%20Lim%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' +
-    # str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Jaysen%20Lim%22%20updated:today%20status:resolved'
-    jaysen_resolved = get_from_api(query)
-    return jaysen_resolved
-
-
-def get_boon_queue():
-    # Get queue of Boon
-    query = 'assigned:%22Yik%20Boon%20Tan%22%20status:open,new,pending%20custom_status:%22Open,' \
-            'Assigned%20to%20Support,Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    boon_queue = get_from_api(query)
-    return boon_queue
-
-
-def get_boon_resolved():
-    # Get the resolved cases of the day by Boon
-    # query = 'assigned:%22Yik%20Boon%20Tan%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20'
-    # + str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Yik%20Boon%20Tan%22%20updated:today%20status:resolved'
-    boon_resolved = get_from_api(query)
-    return boon_resolved
-
-
-def get_cg_queue():
-    # get queue of cg
-    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20status:open,new,pending%20custom_status:%22Open,' \
-            'Assigned%20to%20Support,' \
-            'Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    cg_queue = get_from_api(query)
-    return cg_queue
-
-
-def get_cg_resolved():
-    # get the resolved cases of the day by cg
-    # query = 'assigned:%22Goh%20Chooi%20Gaik%22%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20'
-    # + str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Goh%20Chooi%20Gaik%22%20updated:today%20status:resolved'
-    cg_resolved = get_from_api(query)
-    return cg_resolved
-
-
-def get_mike_queue():
-    # Get queue of Mike
-    query = 'assigned:%22Mike%20Dawson%22%20status:open,new,pending%20custom_status:%22Open,Assigned%20to%20Support,' \
-            'Assigned%20to%20CSM,Waiting%20on%20Customer,Customer%20Review,Closed%22'
-    mike_queue = get_from_api(query)
-    return mike_queue
-
-
-def get_mike_resolved():
-    # Get the resolved cases of the day by CG
-    # query = 'assigned:%22Mike%20Dawson%22%20%28ticket_customer.created_at:%5B' + str(firstDay) +
-    # '%20TO%20' + str(today) + '%5D%29%20status:resolved'
-    query = 'assigned:%22Mike%20Dawson%22%20updated:today%20status:resolved'
-    mike_resolved = get_from_api(query)
-    return mike_resolved
+def get_resolved_of_engineer_three_names(name, second_name, last_name):
+    query = 'assigned:%22' + name + '%20' + second_name + '%20' + last_name + '%22%20updated:today%20status:resolved'
+    engineer_resolved = get_from_api(query)
+    return engineer_resolved
 
 
 firstDay = date_to_time_stamp(first_day_of_month(date.today()))
