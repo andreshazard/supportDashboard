@@ -48,18 +48,6 @@ class Sheet:
         send_to_sheet(self.cellForUnassigned, unassigned)
         print 'Updated unassign cases on sheet with ' + str(unassigned)
 
-    def set_open_this_month(self):
-        """Update open cases of the month on sheet"""
-        open_this_month = get_created_cases_of_month()
-        send_to_sheet(self.cellForOpenThisMonth, open_this_month)
-        print 'Updated open cases of the month on sheet with ' + str(open_this_month)
-
-    def set_close_this_month(self):
-        """Update close cases of the month on sheet"""
-        close_this_month = get_resolved_cases_of_month()
-        send_to_sheet(self.cellForCloseThisMonth, close_this_month)
-        print 'Updated close cases of the month on sheet with ' + str(close_this_month)
-
     def set_waiting_on_customer(self):
         """Update waiting on customer cases on sheet"""
         waiting_on_customer = self.WaCu

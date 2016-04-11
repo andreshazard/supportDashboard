@@ -81,21 +81,6 @@ def get_close_cases():
     return open_cases
 
 
-def get_resolved_cases_of_month():
-    # Get resolved cases of current month
-    query = 'group:Learndot%20%28ticket_customer.updated_at:%5B' + str(firstDay) + '%20TO%20' + str(
-        today) + '%5D%29%20status:resolved'
-    resolved_cases = get_from_api(query)
-    return resolved_cases
-
-
-def get_created_cases_of_month():
-    # Get created cases of current month
-    query = 'group:Learndot%20%28ticket_customer.created_at:%5B' + str(firstDay) + '%20TO%20' + str(today) + '%5D%29'
-    created_cases = get_from_api(query)
-    return created_cases
-
-
 def get_created_cases_of_today():
     # Get created cases of today
     query = 'group:Learndot%20created:today'
