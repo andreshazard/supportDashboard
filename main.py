@@ -23,8 +23,6 @@ class Sheet:
         self.cellForRolandoResolved = 'K9'
         self.cellForJaysenQueue = 'G13'
         self.cellForJaysenResolved = 'G14'
-        self.cellForBoonQueue = 'G23'
-        self.cellForBoonResolved = 'G24'
         self.cellForCGQueue = 'G28'
         self.cellForCGResolved = 'G29'
         self.cellForMikeQueue = 'G33'
@@ -128,8 +126,6 @@ sheet.set_engineer_queue_two_names('Rolando', 'Bergmann', sheet.cellForRolandoQu
 sheet.set_engineer_resolved_two_names('Rolando', 'Bergmann', sheet.cellForRolandoResolved)
 sheet.set_engineer_queue_two_names('Jaysen', 'Lim', sheet.cellForJaysenQueue)
 sheet.set_engineer_resolved_two_names('Jaysen', 'Lim', sheet.cellForJaysenResolved)
-sheet.set_engineer_queue_three_names('Yik', 'Boon', 'Tan', sheet.cellForBoonQueue)
-sheet.set_engineer_resolved_three_names('Yik', 'Boon', 'Tan', sheet.cellForBoonResolved)
 sheet.set_engineer_queue_three_names('Goh', 'Chooi', 'Gaik', sheet.cellForCGQueue)
 sheet.set_engineer_resolved_three_names('Goh', 'Chooi', 'Gaik', sheet.cellForCGResolved)
 sheet.set_engineer_queue_two_names('Mike', 'Dawson', sheet.cellForJaysenQueue)
