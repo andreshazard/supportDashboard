@@ -1,0 +1,8 @@
+#vim files
+*.pyc
+
+#python swp files
+*.py.swp
+
+#json files with google pass
+Dashboard-c5a20a37defa.json
